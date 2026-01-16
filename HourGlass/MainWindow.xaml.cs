@@ -24,7 +24,6 @@ public partial class MainWindow : Window
         _dingPlayer = new SoundPlayer(dingPath);
 
         MinutesSlider.Value = Math.Max(1, _timer.Duration.TotalMinutes);
-        MinutesLabel.Text = $"{(int)MinutesSlider.Value:0} min";
         RemainingText.Text = FormatTime(_timer.Remaining);
         Hourglass.Progress = _timer.Progress;
 
@@ -93,7 +92,6 @@ public partial class MainWindow : Window
 
     private void OnMinutesChanged()
     {
-        MinutesLabel.Text = $"{(int)MinutesSlider.Value:0} min";
         if (!_timer.IsRunning)
         {
             ApplyMinutes();
