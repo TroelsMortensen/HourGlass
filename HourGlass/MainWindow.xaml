@@ -6,9 +6,9 @@
         xmlns:controls="clr-namespace:HourGlass.Controls"
         mc:Ignorable="d"
         Title="HourGlass"
-        Width="360"
+        Width="260"
         Height="520"
-        MinWidth="320"
+        MinWidth="240"
         MinHeight="460"
         WindowStartupLocation="CenterScreen"
         Background="#14212B"
@@ -53,6 +53,7 @@
                         Height="36"
                         Content="Flip"
                         Visibility="Collapsed"
+                        ToolTip="Flip and restart"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
             </Grid>
@@ -71,7 +72,8 @@
                     BorderBrush="#334857"
                     BorderThickness="1"
                     HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    ToolTip="Start/Pause">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
@@ -99,7 +101,8 @@
                     BorderThickness="1"
                     Padding="0"
                     HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    ToolTip="Reset">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
