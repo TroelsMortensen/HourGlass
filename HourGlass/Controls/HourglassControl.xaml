@@ -29,10 +29,11 @@
 
                 <Path x:Name="BottomSand"
                       Fill="#D9B36C"
-                      Data="M 100 190 L 145 270 L 55 270 Z">
-                    <Path.Clip>
-                        <RectangleGeometry x:Name="BottomSandClip" Rect="55,270,90,0" />
-                    </Path.Clip>
+                      Data="M 100 190 L 145 270 L 55 270 Z"
+                      RenderTransformOrigin="0.5,1">
+                    <Path.RenderTransform>
+                        <ScaleTransform x:Name="BottomSandScale" ScaleX="1" ScaleY="0" />
+                    </Path.RenderTransform>
                 </Path>
 
                 <Rectangle x:Name="SandStream"

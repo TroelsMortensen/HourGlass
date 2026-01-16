@@ -13,11 +13,6 @@ namespace HourGlass.Controls
         private const double TopSandWidth = 90;
         private const double TopSandHeight = 100;
 
-        private const double BottomSandX = 55;
-        private const double BottomSandY = 190;
-        private const double BottomSandWidth = 90;
-        private const double BottomSandHeight = 80;
-
         private bool _isFlipping;
 
         public static readonly DependencyProperty ProgressProperty =
@@ -107,14 +102,12 @@ namespace HourGlass.Controls
         {
             var clamped = Math.Max(0, Math.Min(1, Progress));
             var topHeight = TopSandHeight * (1 - clamped);
-            var bottomHeight = BottomSandHeight * clamped;
-
-            TopSandClip.Rect = new Rect(TopSandX, TopSandY, TopSandWidth, topHeight);
-            BottomSandClip.Rect = new Rect(
-                BottomSandX,
-                BottomSandY + (BottomSandHeight - bottomHeight),
-                BottomSandWidth,
-                bottomHeight);
+            TopSandClip.Rect = new Rect(
+                TopSandX,
+                TopSandY + (TopSandHeight - topHeight),
+                TopSandWidth,
+                topHeight);
+            BottomSandScale.ScaleY = clamped;
         }
 
         private void UpdateStream()
