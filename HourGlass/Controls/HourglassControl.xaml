@@ -1,0 +1,50 @@
+<UserControl x:Class="HourGlass.Controls.HourglassControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="240"
+             Height="360">
+    <Viewbox Stretch="Uniform">
+        <Grid Width="200" Height="300" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <RotateTransform x:Name="GlassRotate" Angle="0" />
+            </Grid.RenderTransform>
+
+            <Canvas Width="200" Height="300">
+                <Path Fill="#1FFFFFFF"
+                      Stroke="#A0B8C4"
+                      StrokeThickness="3"
+                      Data="M 40 20 L 160 20 L 110 140 L 90 140 Z" />
+                <Path Fill="#1FFFFFFF"
+                      Stroke="#A0B8C4"
+                      StrokeThickness="3"
+                      Data="M 90 160 L 110 160 L 160 280 L 40 280 Z" />
+
+                <Path x:Name="TopSand"
+                      Fill="#D9B36C"
+                      Data="M 55 30 L 145 30 L 105 130 L 95 130 Z">
+                    <Path.Clip>
+                        <RectangleGeometry x:Name="TopSandClip" Rect="55,30,90,100" />
+                    </Path.Clip>
+                </Path>
+
+                <Path x:Name="BottomSand"
+                      Fill="#D9B36C"
+                      Data="M 95 170 L 105 170 L 145 270 L 55 270 Z">
+                    <Path.Clip>
+                        <RectangleGeometry x:Name="BottomSandClip" Rect="55,270,90,0" />
+                    </Path.Clip>
+                </Path>
+
+                <Rectangle x:Name="SandStream"
+                           Width="6"
+                           Height="28"
+                           Fill="#D9B36C"
+                           RadiusX="2"
+                           RadiusY="2"
+                           Canvas.Left="97"
+                           Canvas.Top="136"
+                           Opacity="0" />
+            </Canvas>
+        </Grid>
+    </Viewbox>
+</UserControl>
