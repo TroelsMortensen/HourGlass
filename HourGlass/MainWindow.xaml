@@ -6,10 +6,10 @@
         xmlns:controls="clr-namespace:HourGlass.Controls"
         mc:Ignorable="d"
         Title="HourGlass"
-        Width="260"
-        Height="520"
-        MinWidth="240"
-        MinHeight="460"
+        Width="320"
+        Height="580"
+        MinWidth="300"
+        MinHeight="500"
         WindowStartupLocation="CenterScreen"
         Background="#14212B"
         Foreground="#E3ECF2">
@@ -52,8 +52,9 @@
                 BorderBrush="#263643">
             <Grid>
                 <controls:HourglassControl x:Name="Hourglass"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" />
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Stretch"
+                                           Margin="12" />
                 <Button x:Name="FlipButton"
                         Width="40"
                         Height="40"
