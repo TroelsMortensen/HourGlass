@@ -11,6 +11,7 @@ public partial class MainWindow : Window
     private readonly TimerService _timer = new();
     private readonly SoundPlayer _dingPlayer;
     private bool _isResetting;
+    private bool _isCompleted;
 
     public MainWindow()
     {
@@ -32,6 +33,7 @@ public partial class MainWindow : Window
 
         StartPauseButton.Click += OnStartPauseClicked;
         ResetButton.Click += OnResetClicked;
+        FlipButton.Click += OnFlipClicked;
         TopmostCheckBox.Checked += (_, _) => Topmost = true;
         TopmostCheckBox.Unchecked += (_, _) => Topmost = false;
         MinutesSlider.ValueChanged += (_, _) => OnMinutesChanged();
@@ -47,6 +49,7 @@ public partial class MainWindow : Window
         {
             ApplyMinutes();
             _timer.Start();
+            _isCompleted = false;
         }
 
         UpdateDisplay();
@@ -59,9 +62,23 @@ public partial class MainWindow : Window
             return;
         }
 
+        _timer.Pause();
+        _timer.Reset();
+        _isCompleted = false;
+        UpdateDisplay();
+    }
+
+    private async void OnFlipClicked(object sender, RoutedEventArgs e)
+    {
+        if (_isResetting || !_isCompleted)
+        {
+            return;
+        }
+
         _isResetting = true;
         StartPauseButton.IsEnabled = false;
         ResetButton.IsEnabled = false;
+        FlipButton.IsEnabled = false;
 
         await Hourglass.BeginFlipAsync();
         _timer.Reset();
@@ -70,6 +87,7 @@ public partial class MainWindow : Window
         StartPauseButton.IsEnabled = true;
         ResetButton.IsEnabled = true;
         _isResetting = false;
+        _isCompleted = false;
         UpdateDisplay();
     }
 
@@ -105,13 +123,17 @@ public partial class MainWindow : Window
         Hourglass.Progress = _timer.Progress;
         Hourglass.IsRunning = _timer.IsRunning;
         StartPauseButton.Content = _timer.IsRunning ? "Pause" : "Start";
+        FlipButton.IsEnabled = _isCompleted && !_isResetting;
     }
 
     private void OnTimerCompleted()
     {
         UpdateDisplay();
+        _isCompleted = true;
+        UpdateDisplay();
         PlayDing();
     }
+
 
     private void PlayDing()
     {
