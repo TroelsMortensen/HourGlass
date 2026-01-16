@@ -8,9 +8,9 @@ namespace HourGlass.Controls
 {
     public partial class HourglassControl : UserControl
     {
-        private const double TopSandX = 55;
+        private const double TopSandX = 48;
         private const double TopSandY = 30;
-        private const double TopSandWidth = 90;
+        private const double TopSandWidth = 104;
         private const double TopSandHeight = 100;
 
         private bool _isFlipping;

@@ -13,23 +13,29 @@
                 <Path Fill="#1FFFFFFF"
                       Stroke="#A0B8C4"
                       StrokeThickness="3"
-                      Data="M 40 20 L 160 20 L 110 140 L 90 140 Z" />
+                      StrokeLineJoin="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeEndLineCap="Round"
+                      Data="M 54 20 L 146 20 Q 160 20 160 34 L 110 140 L 90 140 L 40 34 Q 40 20 54 20 Z" />
                 <Path Fill="#1FFFFFFF"
                       Stroke="#A0B8C4"
                       StrokeThickness="3"
-                      Data="M 90 160 L 110 160 L 160 280 L 40 280 Z" />
+                      StrokeLineJoin="Round"
+                      StrokeStartLineCap="Round"
+                      StrokeEndLineCap="Round"
+                      Data="M 90 160 L 110 160 L 160 266 Q 160 280 146 280 L 54 280 Q 40 280 40 266 L 90 160 Z" />
 
                 <Path x:Name="TopSand"
                       Fill="#D9B36C"
-                      Data="M 55 30 L 145 30 L 105 130 L 95 130 Z">
+                      Data="M 48 30 L 152 30 L 107 132 L 93 132 Z">
                     <Path.Clip>
-                        <RectangleGeometry x:Name="TopSandClip" Rect="55,30,90,100" />
+                        <RectangleGeometry x:Name="TopSandClip" Rect="48,30,104,100" />
                     </Path.Clip>
                 </Path>
 
                 <Path x:Name="BottomSand"
                       Fill="#D9B36C"
-                      Data="M 100 190 L 145 270 L 55 270 Z"
+                      Data="M 100 190 L 152 270 L 48 270 Z"
                       RenderTransformOrigin="0.5,1">
                     <Path.RenderTransform>
                         <ScaleTransform x:Name="BottomSandScale" ScaleX="1" ScaleY="0" />
