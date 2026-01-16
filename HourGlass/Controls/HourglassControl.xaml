@@ -29,20 +29,20 @@
 
                 <Path x:Name="BottomSand"
                       Fill="#D9B36C"
-                      Data="M 95 170 L 105 170 L 145 270 L 55 270 Z">
+                      Data="M 100 190 L 145 270 L 55 270 Z">
                     <Path.Clip>
                         <RectangleGeometry x:Name="BottomSandClip" Rect="55,270,90,0" />
                     </Path.Clip>
                 </Path>
 
                 <Rectangle x:Name="SandStream"
-                           Width="6"
-                           Height="28"
+                           Width="4"
+                           Height="130"
                            Fill="#D9B36C"
                            RadiusX="2"
                            RadiusY="2"
-                           Canvas.Left="97"
-                           Canvas.Top="136"
+                           Canvas.Left="98"
+                           Canvas.Top="140"
                            Opacity="0" />
             </Canvas>
         </Grid>

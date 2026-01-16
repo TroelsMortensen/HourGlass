@@ -14,9 +14,9 @@ namespace HourGlass.Controls
         private const double TopSandHeight = 100;
 
         private const double BottomSandX = 55;
-        private const double BottomSandY = 170;
+        private const double BottomSandY = 190;
         private const double BottomSandWidth = 90;
-        private const double BottomSandHeight = 100;
+        private const double BottomSandHeight = 80;
 
         private bool _isFlipping;
 
