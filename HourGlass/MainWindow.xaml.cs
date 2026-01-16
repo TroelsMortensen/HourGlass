@@ -123,7 +123,9 @@ public partial class MainWindow : Window
         Hourglass.Progress = _timer.Progress;
         Hourglass.IsRunning = _timer.IsRunning;
         StartPauseButton.Content = _timer.IsRunning ? "Pause" : "Start";
-        FlipButton.IsEnabled = _isCompleted && !_isResetting;
+        FlipButton.Visibility = _isCompleted && !_isResetting
+            ? Visibility.Visible
+            : Visibility.Collapsed;
     }
 
     private void OnTimerCompleted()

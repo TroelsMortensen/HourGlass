@@ -72,7 +72,7 @@ namespace HourGlass.Controls
             animation.Completed += (_, _) =>
             {
                 GlassRotate.BeginAnimation(System.Windows.Media.RotateTransform.AngleProperty, null);
-                GlassRotate.Angle = targetAngle % 360;
+                GlassRotate.Angle = 0;
                 _isFlipping = false;
                 tcs.TrySetResult(true);
             };
