@@ -14,6 +14,7 @@ namespace HourGlass.Controls
         private const double TopSandHeight = 100;
 
         private bool _isFlipping;
+        private Storyboard? _streamStoryboard;
 
         public static readonly DependencyProperty ProgressProperty =
             DependencyProperty.Register(
@@ -114,6 +115,77 @@ namespace HourGlass.Controls
         {
             var running = IsRunning && Progress > 0 && Progress < 1;
             SandStream.Opacity = running ? 1 : 0;
+            SandStreamGlow.Opacity = running ? 0.5 : 0;
+            SandStreamParticle1.Opacity = running ? 1 : 0;
+            SandStreamParticle2.Opacity = running ? 0.9 : 0;
+            SandStreamParticle3.Opacity = running ? 0.8 : 0;
+
+            if (running)
+            {
+                EnsureStreamAnimation();
+                _streamStoryboard?.Begin(this, true);
+            }
+            else
+            {
+                _streamStoryboard?.Stop(this);
+            }
+        }
+
+        private void EnsureStreamAnimation()
+        {
+            if (_streamStoryboard != null)
+            {
+                return;
+            }
+
+            _streamStoryboard = new Storyboard();
+
+            var glowAnimation = new DoubleAnimation
+            {
+                From = 0.2,
+                To = 0.7,
+                Duration = TimeSpan.FromSeconds(0.6),
+                AutoReverse = true,
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            Storyboard.SetTarget(glowAnimation, SandStreamGlow);
+            Storyboard.SetTargetProperty(glowAnimation, new PropertyPath(OpacityProperty));
+            _streamStoryboard.Children.Add(glowAnimation);
+
+            var particleAnimation1 = new DoubleAnimation
+            {
+                From = 140,
+                To = 258,
+                Duration = TimeSpan.FromSeconds(0.5),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            Storyboard.SetTarget(particleAnimation1, SandStreamParticle1);
+            Storyboard.SetTargetProperty(particleAnimation1, new PropertyPath("(Canvas.Top)"));
+            _streamStoryboard.Children.Add(particleAnimation1);
+
+            var particleAnimation2 = new DoubleAnimation
+            {
+                From = 150,
+                To = 258,
+                Duration = TimeSpan.FromSeconds(0.6),
+                BeginTime = TimeSpan.FromSeconds(0.2),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            Storyboard.SetTarget(particleAnimation2, SandStreamParticle2);
+            Storyboard.SetTargetProperty(particleAnimation2, new PropertyPath("(Canvas.Top)"));
+            _streamStoryboard.Children.Add(particleAnimation2);
+
+            var particleAnimation3 = new DoubleAnimation
+            {
+                From = 160,
+                To = 258,
+                Duration = TimeSpan.FromSeconds(0.7),
+                BeginTime = TimeSpan.FromSeconds(0.35),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+            Storyboard.SetTarget(particleAnimation3, SandStreamParticle3);
+            Storyboard.SetTargetProperty(particleAnimation3, new PropertyPath("(Canvas.Top)"));
+            _streamStoryboard.Children.Add(particleAnimation3);
         }
     }
 }

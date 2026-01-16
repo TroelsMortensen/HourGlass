@@ -51,6 +51,42 @@
                            Canvas.Left="98"
                            Canvas.Top="140"
                            Opacity="0" />
+                <Rectangle x:Name="SandStreamGlow"
+                           Width="4"
+                           Height="130"
+                           Fill="#E8C784"
+                           RadiusX="2"
+                           RadiusY="2"
+                           Canvas.Left="98"
+                           Canvas.Top="140"
+                           Opacity="0" />
+                <Rectangle x:Name="SandStreamParticle1"
+                           Width="3"
+                           Height="12"
+                           Fill="#FFE2AE"
+                           RadiusX="1.5"
+                           RadiusY="1.5"
+                           Canvas.Left="98.5"
+                           Canvas.Top="140"
+                           Opacity="0" />
+                <Rectangle x:Name="SandStreamParticle2"
+                           Width="3"
+                           Height="10"
+                           Fill="#FFE2AE"
+                           RadiusX="1.5"
+                           RadiusY="1.5"
+                           Canvas.Left="98.5"
+                           Canvas.Top="170"
+                           Opacity="0" />
+                <Rectangle x:Name="SandStreamParticle3"
+                           Width="3"
+                           Height="8"
+                           Fill="#FFE2AE"
+                           RadiusX="1.5"
+                           RadiusY="1.5"
+                           Canvas.Left="98.5"
+                           Canvas.Top="200"
+                           Opacity="0" />
             </Canvas>
         </Grid>
     </Viewbox>
