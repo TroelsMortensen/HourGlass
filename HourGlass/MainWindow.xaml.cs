@@ -2,6 +2,7 @@
 using System.IO;
 using System.Media;
 using System.Windows;
+using System.Windows.Media;
 using HourGlass.Services;
 
 namespace HourGlass;
@@ -120,7 +121,9 @@ public partial class MainWindow : Window
         RemainingText.Text = FormatTime(_timer.Remaining);
         Hourglass.Progress = _timer.Progress;
         Hourglass.IsRunning = _timer.IsRunning;
-        StartPauseButton.Content = _timer.IsRunning ? "Pause" : "Start";
+        StartPauseIcon.Data = _timer.IsRunning
+            ? Geometry.Parse("M 3 2 H 7 V 18 H 3 Z M 11 2 H 15 V 18 H 11 Z")
+            : Geometry.Parse("M 3 2 L 16 10 L 3 18 Z");
         FlipButton.Visibility = _isCompleted && !_isResetting
             ? Visibility.Visible
             : Visibility.Collapsed;
