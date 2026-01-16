@@ -25,7 +25,7 @@ public partial class MainWindow : Window
         _dingPlayer = new SoundPlayer(dingPath);
 
         MinutesSlider.Value = Math.Max(1, _timer.Duration.TotalMinutes);
-        RemainingText.Text = FormatTime(_timer.Remaining);
+        RemainingText.Text = FormatTime(_timer.Remaining, _timer.IsRunning);
         Hourglass.Progress = _timer.Progress;
 
         _timer.Tick += (_, _) => UpdateDisplay();
@@ -47,7 +47,10 @@ public partial class MainWindow : Window
         }
         else
         {
-            ApplyMinutes();
+            if (_timer.Remaining == _timer.Duration)
+            {
+                ApplyMinutes();
+            }
             _timer.Start();
             _isCompleted = false;
         }
@@ -55,7 +58,7 @@ public partial class MainWindow : Window
         UpdateDisplay();
     }
 
-    private async void OnResetClicked(object sender, RoutedEventArgs e)
+    private void OnResetClicked(object sender, RoutedEventArgs e)
     {
         if (_isResetting)
         {
@@ -111,14 +114,16 @@ public partial class MainWindow : Window
         UpdateDisplay();
     }
 
-    private string FormatTime(TimeSpan value)
+    private string FormatTime(TimeSpan value, bool includeSeconds)
     {
-        return $"{(int)value.TotalMinutes:00}:00";
+        return includeSeconds
+            ? $"{(int)value.TotalMinutes:00}:{value.Seconds:00}"
+            : $"{(int)value.TotalMinutes:00}:00";
     }
 
     private void UpdateDisplay()
     {
-        RemainingText.Text = FormatTime(_timer.Remaining);
+        RemainingText.Text = FormatTime(_timer.Remaining, _timer.IsRunning);
         Hourglass.Progress = _timer.Progress;
         Hourglass.IsRunning = _timer.IsRunning;
         StartPauseIcon.Data = _timer.IsRunning
