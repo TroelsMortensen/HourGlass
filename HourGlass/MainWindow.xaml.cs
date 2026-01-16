@@ -19,7 +19,7 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         Topmost = true;
-        TopmostCheckBox.IsChecked = true;
+        TopmostToggle.IsChecked = true;
 
         var dingPath = Path.Combine(AppContext.BaseDirectory, "Assets", "ding.wav");
         _dingPlayer = new SoundPlayer(dingPath);
@@ -34,8 +34,8 @@ public partial class MainWindow : Window
         StartPauseButton.Click += OnStartPauseClicked;
         ResetButton.Click += OnResetClicked;
         FlipButton.Click += OnFlipClicked;
-        TopmostCheckBox.Checked += (_, _) => Topmost = true;
-        TopmostCheckBox.Unchecked += (_, _) => Topmost = false;
+        TopmostToggle.Checked += (_, _) => Topmost = true;
+        TopmostToggle.Unchecked += (_, _) => Topmost = false;
         MinutesSlider.ValueChanged += (_, _) => OnMinutesChanged();
     }
 
