@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Media;
 using System.Windows;
-using System.Windows.Input;
 using HourGlass.Services;
 
 namespace HourGlass;
@@ -24,7 +22,8 @@ public partial class MainWindow : Window
         var dingPath = Path.Combine(AppContext.BaseDirectory, "Assets", "ding.wav");
         _dingPlayer = new SoundPlayer(dingPath);
 
-        DurationTextBox.Text = FormatTime(_timer.Duration);
+        MinutesSlider.Value = Math.Max(1, _timer.Duration.TotalMinutes);
+        MinutesLabel.Text = $"{(int)MinutesSlider.Value:0} min";
         RemainingText.Text = FormatTime(_timer.Remaining);
         Hourglass.Progress = _timer.Progress;
 
@@ -35,8 +34,7 @@ public partial class MainWindow : Window
         ResetButton.Click += OnResetClicked;
         TopmostCheckBox.Checked += (_, _) => Topmost = true;
         TopmostCheckBox.Unchecked += (_, _) => Topmost = false;
-        DurationTextBox.LostFocus += (_, _) => TryApplyDuration();
-        DurationTextBox.KeyDown += OnDurationKeyDown;
+        MinutesSlider.ValueChanged += (_, _) => OnMinutesChanged();
     }
 
     private void OnStartPauseClicked(object sender, RoutedEventArgs e)
@@ -47,7 +45,7 @@ public partial class MainWindow : Window
         }
         else
         {
-            TryApplyDuration();
+            ApplyMinutes();
             _timer.Start();
         }
 
@@ -75,80 +73,30 @@ public partial class MainWindow : Window
         UpdateDisplay();
     }
 
-    private void OnDurationKeyDown(object sender, KeyEventArgs e)
+    private void OnMinutesChanged()
     {
-        if (e.Key == Key.Enter)
+        MinutesLabel.Text = $"{(int)MinutesSlider.Value:0} min";
+        if (!_timer.IsRunning)
         {
-            TryApplyDuration();
-            e.Handled = true;
+            ApplyMinutes();
         }
     }
 
-    private void TryApplyDuration()
+    private void ApplyMinutes()
     {
         if (_timer.IsRunning)
         {
-            DurationTextBox.Text = FormatTime(_timer.Duration);
             return;
         }
 
-        if (TryParseDuration(DurationTextBox.Text, out var duration))
-        {
-            _timer.SetDuration(duration);
-            DurationTextBox.Text = FormatTime(_timer.Duration);
-            UpdateDisplay();
-            return;
-        }
-
-        DurationTextBox.Text = FormatTime(_timer.Duration);
-    }
-
-    private bool TryParseDuration(string? text, out TimeSpan duration)
-    {
-        duration = TimeSpan.FromMinutes(25);
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            return false;
-        }
-
-        text = text.Trim();
-        if (text.Contains(":"))
-        {
-            var parts = text.Split(':', StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 2)
-            {
-                return false;
-            }
-
-            if (!int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var minutes))
-            {
-                return false;
-            }
-
-            if (!int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var seconds))
-            {
-                return false;
-            }
-
-            minutes = Math.Max(0, minutes);
-            seconds = Math.Max(0, Math.Min(59, seconds));
-            duration = new TimeSpan(0, minutes, seconds);
-            return duration > TimeSpan.Zero;
-        }
-
-        if (!int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var mins))
-        {
-            return false;
-        }
-
-        mins = Math.Max(0, mins);
-        duration = TimeSpan.FromMinutes(mins);
-        return duration > TimeSpan.Zero;
+        var minutes = Math.Max(1, (int)MinutesSlider.Value);
+        _timer.SetDuration(TimeSpan.FromMinutes(minutes));
+        UpdateDisplay();
     }
 
     private string FormatTime(TimeSpan value)
     {
-        return $"{(int)value.TotalMinutes:00}:{value.Seconds:00}";
+        return $"{(int)value.TotalMinutes:00}:00";
     }
 
     private void UpdateDisplay()

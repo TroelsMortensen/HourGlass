@@ -21,14 +21,25 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,12">
-            <TextBlock Text="Duration (mm:ss)" Foreground="#CCD6DD" />
-            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                <TextBox x:Name="DurationTextBox"
-                         Width="90"
-                         Text="25:00"
-                         VerticalContentAlignment="Center" />
+            <TextBlock Text="Duration (minutes)" Foreground="#CCD6DD" />
+            <StackPanel Orientation="Horizontal" Margin="0,6,0,0" VerticalAlignment="Center">
+                <Slider x:Name="MinutesSlider"
+                        Minimum="1"
+                        Maximum="60"
+                        Value="25"
+                        Width="200"
+                        TickFrequency="1"
+                        IsSnapToTickEnabled="True" />
+                <TextBlock x:Name="MinutesLabel"
+                           Margin="12,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Text="25 min" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                 <TextBlock Text="Remaining:"
-                           Margin="16,0,6,0"
+                           Margin="0,0,6,0"
                            VerticalAlignment="Center"
                            Foreground="#CCD6DD" />
                 <TextBlock x:Name="RemainingText"
