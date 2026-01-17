@@ -19,3 +19,7 @@ dotnet run --project HourGlass/HourGlass.csproj
 
 ## AI usage
 This was entirely vibe coded, I have not looked at the code at all.
+
+## Release
+
+The Release folder contains the compiled exe file. It depends on having .NET 8.0 installed. The Assets folder contains the ding.wav file to play when the timer completes. Without it the timer will default to using the system sound.
